@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>나현준의 작은 기록장</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fbf8f3;
+    --surface: #ffffff;
+    --ink: #1e2a33;
+    --muted: #5c6770;
+    --line: #e6e0d6;
+    --ocean: #1f5f7a;
+    --snack: #c46f43;
+    --shark: #2f6f8f;
+    --film: #8a3b4a;
+    --radius: 14px;
+    --serif: "Gowun Batang", serif;
+    --sans: "Noto Sans KR", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+  body { margin: 0; overflow-wrap: anywhere; background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.75; font-size: 16px; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+
+  /* nav */
+  nav { position: sticky; top: 0; z-index: 10; background: rgba(251,248,243,.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+  nav .wrap { display: flex; align-items: center; gap: 20px; height: 56px; overflow-x: auto; scrollbar-width: none; }
+  nav .wrap::-webkit-scrollbar { display: none; }
+  nav .logo { font-family: var(--serif); font-weight: 700; white-space: nowrap; text-decoration: none; margin-right: auto; }
+  nav a.link { font-size: 15px; color: var(--muted); text-decoration: none; white-space: nowrap; }
+  nav a.link:hover { color: var(--ink); }
+
+  /* hero */
+  header.hero { padding: 80px 0 56px; }
+  .hero h1 { font-family: var(--serif); font-size: clamp(30px, 6vw, 48px); line-height: 1.3; margin: 0 0 18px; }
+  .hero h1 em { font-style: normal; color: var(--ocean); }
+  .hero > .wrap > p { color: var(--muted); max-width: 560px; margin: 0; font-size: 17px; }
+
+  /* 한눈에 보기 */
+  .map { display: grid; gap: 12px; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 36px; }
+  .map a { display: block; text-decoration: none; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--c); border-radius: 10px; padding: 14px 16px; }
+  .map a:hover { border-color: var(--c); }
+  .map .t { font-weight: 700; color: var(--c); }
+  .map ul { margin: 4px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--muted); }
+
+  /* 관심사 장(章) */
+  .snack { --c: var(--snack); }
+  .shark { --c: var(--shark); }
+  .film  { --c: var(--film); }
+  section.chapter { padding: 72px 0; border-top: 1px solid var(--line); }
+  section.chapter:nth-of-type(even) { background: color-mix(in srgb, var(--c) 5%, var(--bg)); }
+  .ch-head { display: flex; align-items: flex-end; gap: 16px; margin-bottom: 8px; }
+  .ch-num { font-family: var(--serif); font-size: 56px; line-height: 1; color: var(--c); opacity: .35; }
+  .ch-head h2 { font-family: var(--serif); font-size: clamp(28px, 5vw, 38px); margin: 0; line-height: 1.2; }
+  .ch-head .icon { font-size: 34px; line-height: 1; margin-left: auto; }
+  .lead { color: var(--muted); margin: 8px 0 32px; max-width: 640px; }
+
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+  .card p { margin: 0; }
+  .label { font-size: 13px; font-weight: 700; color: var(--c, var(--muted)); margin: 0 0 4px; }
+  .card p + .label { margin-top: 16px; }
+  .two { display: grid; gap: 16px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .story { border-top: 4px solid var(--c); }
+
+  /* 관심사 안의 소단락 */
+  .block { margin-top: 48px; }
+  .block-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; margin-bottom: 16px; }
+  .block-head h3 { font-family: var(--serif); font-size: 22px; margin: 0; }
+  .block-head .sub { width: 100%; font-size: 14px; color: var(--muted); }
+
+  /* 내가 찍은 장면 */
+  .duo { display: grid; gap: 16px; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+  .stack { display: grid; gap: 16px; }
+  .card.snap { padding: 0; margin: 0; overflow: hidden; }
+  .snap img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .snap.tall img { aspect-ratio: 4 / 5; object-position: center top; }
+  .snap figcaption { padding: 14px 20px 16px; font-family: var(--serif); font-size: 18px; font-weight: 700; }
+  .snap figcaption .label { display: block; font-family: var(--sans); }
+
+  /* 대사 */
+  .quotes { display: grid; gap: 16px; }
+  .quote blockquote { margin: 0; font-family: var(--serif); font-size: 20px; line-height: 1.6; padding-left: 16px; border-left: 3px solid var(--c); }
+  .quote .src { font-size: 14px; color: var(--muted); margin: 8px 0 16px 19px; }
+  .quote blockquote [lang="en"] { display: block; font-size: 22px; font-style: italic; }
+  .quote blockquote .ko { display: block; font-size: 17px; color: var(--muted); margin-top: 4px; }
+  .movie { font-family: var(--serif); font-size: 17px; line-height: 1.5; }
+  .movie strong { font-size: 24px; color: var(--c); }
+  .movie .year { font-size: 15px; color: var(--muted); }
+  .favorite { display: grid; grid-template-columns: 200px 1fr; gap: 28px; align-items: start; }
+  .favorite .movie + .label { margin-top: 20px; }
+  .poster { margin: 0; }
+  .poster img { width: 100%; border-radius: 8px; box-shadow: 0 6px 18px rgba(0,0,0,.18); }
+  .poster figcaption { font-size: 11px; color: var(--muted); margin-top: 6px; text-align: center; }
+
+  footer { padding: 40px 0 56px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; text-align: center; }
+
+  @media (max-width: 680px) {
+    header.hero { padding: 56px 0 40px; }
+    section.chapter { padding: 52px 0; }
+    .card { padding: 20px; }
+    .map, .two, .duo { grid-template-columns: 1fr; }
+    .favorite { grid-template-columns: 1fr; gap: 20px; }
+    .poster { max-width: 200px; margin: 0 auto; }
+    .ch-num { font-size: 44px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#top">나현준의 기록장</a>
+    <a class="link" href="#snack">🍡 다과</a>
+    <a class="link" href="#shark">🦈 상어</a>
+    <a class="link" href="#film">🎬 영화</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <h1>안녕하세요, <em>나현준</em>입니다.</h1>
+    <p>달콤한 다과 한 접시, 바다를 가르는 상어, 그리고 오래 남는 영화 한 편.
+      제가 좋아하는 세 가지를, 각각 직접 겪은 이야기와 함께 묶어 두었습니다.</p>
+
+    <div class="map">
+      <a class="snack" href="#snack"><span class="t">🍡 다과</span>
+        <ul><li>좋아하게 된 계기</li><li>내가 찍은 장면: 커피랑 크로플</li></ul></a>
+      <a class="shark" href="#shark"><span class="t">🦈 상어</span>
+        <ul><li>부캉이를 알게 된 이야기</li><li>내가 찍은 장면: 부캉이 지느러미</li></ul></a>
+      <a class="film" href="#film"><span class="t">🎬 영화</span>
+        <ul><li>가장 좋아하는 영화, 시스의 복수</li><li>가장 좋아하는 대사</li></ul></a>
+    </div>
+  </div>
+</header>
+
+<!-- =====================================================================
+     01 다과  —  계기 + 내가 찍은 장면
+     ===================================================================== -->
+<section class="chapter snack" id="snack">
+  <div class="wrap">
+    <div class="ch-head"><span class="ch-num">01</span><h2>다과</h2><span class="icon">🍡</span></div>
+    <p class="lead">커피 한 잔과 달콤한 디저트 하나가, 가족과의 대화를 열어 줍니다.</p>
+
+    <div class="duo">
+      <div class="card story">
+        <p class="label">좋아하게 된 계기</p>
+        <p>커피와 달콤한 디저트를 앞에 두고 가족과 함께 앉아 있으면, 따로 이야깃거리를 찾지 않아도 대화가 자연스럽게 이어졌습니다. 각자 바쁘게 지내다가도 그 시간만큼은 서로의 하루를 묻고 함께 웃게 되었고, 저는 그 분위기가 참 좋았습니다. 그래서 저에게 다과는 단순한 간식이 아니라, 가족과 이야기를 나누는 시간입니다.</p>
+      </div>
+      <figure class="card snap">
+        <img src="images/croffle.jpg" alt="아이스크림과 아몬드를 올린 크로플과 아이스커피">
+        <figcaption><span class="label">내가 찍은 장면</span>커피랑 크로플</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     02 상어  —  부캉이 이야기 + 내가 찍은 장면
+     ===================================================================== -->
+<section class="chapter shark" id="shark">
+  <div class="wrap">
+    <div class="ch-head"><span class="ch-num">02</span><h2>상어</h2><span class="icon">🦈</span></div>
+    <p class="lead">무섭다고만 생각했던 상어가, 요즘은 자꾸 궁금해지는 존재가 되었습니다.</p>
+
+    <div class="duo">
+      <div class="stack">
+        <div class="card story">
+          <p class="label">'부캉이'를 알게 된 계기</p>
+          <p>9월, 부산 북항 친수공원 수로에 몸길이 3.5m쯤 되는 상어가 나타났다는 뉴스를 봤습니다. '북항에서 발견된 상어'라는 뜻으로 '부캉이'라는 이름까지 붙었다는 걸 알고, 상어에게 이름이 생겼다는 게 재밌어서 관련 소식을 계속 찾아보게 되었습니다.</p>
+        </div>
+        <div class="card story">
+          <p class="label">부캉이가 흥미로운 점</p>
+          <p>넓은 바다에 살던 큰 상어가 도시 한가운데 수로를 천천히 맴돌고, 그 모습을 보려고 수많은 사람이 모여들었다는 점이 신기했습니다. 어떤 종인지도 아직 확실하지 않다고 해서, 상어에 대해 우리가 모르는 게 아직 많구나 싶었습니다.</p>
+        </div>
+      </div>
+      <figure class="card snap tall">
+        <img src="images/bukangi.jpg" alt="부산 북항 친수공원 수로 위로 드러난 부캉이의 지느러미와 난간에서 지켜보는 사람들">
+        <figcaption><span class="label">내가 찍은 장면</span>부캉이 지느러미</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     03 영화  —  시스의 복수 + 가장 좋아하는 대사
+     ===================================================================== -->
+<section class="chapter film" id="film">
+  <div class="wrap">
+    <div class="ch-head"><span class="ch-num">03</span><h2>영화</h2><span class="icon">🎬</span></div>
+    <p class="lead">영화가 끝나도, 그 안의 장면과 대사는 오래 남습니다.</p>
+
+    <div class="card story favorite">
+      <figure class="poster">
+        <img src="images/poster.jpg" alt="영화 「스타워즈 에피소드 3: 시스의 복수」 포스터">
+        <figcaption>포스터 © Lucasfilm Ltd.</figcaption>
+      </figure>
+      <div>
+        <p class="label">가장 좋아하는 영화</p>
+        <p class="movie">스타워즈 에피소드 3<br><strong>시스의 복수</strong> <span class="year">(2005)</span></p>
+        <p class="label">이 영화를 좋아하는 이유</p>
+        <p>스타워즈 시리즈 가운데 가장 어둡고 묵직한 분위기의 작품입니다. 화려한 우주 전투와 광선검 대결도 멋지지만, 그보다 사람이 중요한 선택 앞에서 얼마나 흔들릴 수 있는지를 진지하게 그려 낸다는 점이 마음에 남았습니다. 여러 번 봐도 볼 때마다 새롭게 생각할 거리를 주는, 저에게는 특별한 영화입니다.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>가장 좋아하는 대사</h3>
+        <span class="sub">가장 좋아하는 영화 속, 가장 오래 남은 한 문장</span>
+      </div>
+      <div class="card quote">
+        <blockquote>
+          <span lang="en">So this is how liberty dies… with thunderous applause.</span>
+          <span class="ko">이렇게 자유가 죽네요… 우레와 같은 갈채와 함께.</span>
+        </blockquote>
+        <p class="src">— 「스타워즈 에피소드 3: 시스의 복수」 (2005)</p>
+        <p class="label">왜 기억에 남는지</p>
+        <p>자유가 무너지는 순간이 꼭 요란한 싸움 속에서만 찾아오는 것은 아니라는 말이라서 오래 남았습니다. 오히려 모두가 환호하고 박수 칠 때 더 조용히 사라질 수 있다는 점이 섬뜩하게 다가왔습니다. 모두가 한목소리로 찬성하는 분위기일수록 한 번 더 멈춰 생각해 봐야 한다는 것을, 저는 이 대사에서 배웠습니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">🍡 🦈 🎬 &nbsp;나현준의 작은 기록장</div>
+</footer>
+
+</body>
+</html>
