@@ -3,6 +3,7 @@
 .claude/hooks/suggest_web_memory.sh
 .claude/skills/hook-twin/SKILL.md
 .claude/skills/memory-sync-conflict-handling/SKILL.md
+.claude/skills/pat-renewal/SKILL.md
 .claude/skills/synced/.bucket-1bea6aef-bd7b-412a-9a23-95867e841769_c8764a21-f412-4621-a209-fda621cdc3fe
 .claude/skills/synced/1bea6aef-bd7b-412a-9a23-95867e841769_c8764a21-f412-4621-a209-fda621cdc3fe/built-in-browser/LICENSE.txt
 .claude/skills/synced/1bea6aef-bd7b-412a-9a23-95867e841769_c8764a21-f412-4621-a209-fda621cdc3fe/built-in-browser/SKILL.md
