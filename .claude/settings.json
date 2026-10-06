@@ -1,0 +1,38 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "f=\"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/suggest_hook_reminder.sh\"; [ -f \"$f\" ] && bash \"$f\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "f=\"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/suggest_web_memory.sh\"; [ -f \"$f\" ] && bash \"$f\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  },
+  "extraKnownMarketplaces": {
+    "anthropic-agent-skills": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/skills"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "document-skills@anthropic-agent-skills": true
+  }
+}
